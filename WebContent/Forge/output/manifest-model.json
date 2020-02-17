@@ -1,0 +1,175 @@
+{
+  "version": "1.0",
+  "urn": "dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0",
+  "type": "manifest",
+  "progress": "complete",
+  "status": "success",
+  "hasThumbnail": "true",
+  "region": "US",
+  "derivatives": [
+    {
+      "outputType": "svf",
+      "status": "success",
+      "name": "input.nwc",
+      "hasThumbnail": "true",
+      "progress": "complete",
+      "children": [
+        {
+          "type": "geometry",
+          "role": "3d",
+          "status": "success",
+          "name": "3d",
+          "hasThumbnail": "true",
+          "progress": "complete",
+          "guid": "f98d2078-8d0c-4039-ad79-8644cf3f133c",
+          "children": [
+            {
+              "type": "view",
+              "role": "3d",
+              "status": "success",
+              "name": "Default",
+              "progress": "complete",
+              "guid": "84d9cccf-973a-40cd-8fe9-93a38e5b6df7",
+              "camera": [
+                123.94788360595703,
+                -383.14938354492187,
+                9.3420028686523437,
+                123.94788360595703,
+                -49.506011962890625,
+                9.3420028686523437,
+                0.0,
+                -2.2204460492503131E-16,
+                1.0,
+                1.0,
+                0.7853980302393937,
+                333.64337158203125,
+                0.0
+              ]
+            },
+            {
+              "type": "folder",
+              "role": "viewable",
+              "status": "success",
+              "name": "Navisworks 3D",
+              "hasThumbnail": "false",
+              "progress": "0% complete",
+              "guid": "efcdddc7-9498-47a2-8333-f8c69a64efbe",
+              "children": [
+                {
+                  "type": "view",
+                  "role": "3d",
+                  "status": "success",
+                  "name": "整个项目",
+                  "guid": "0afc6a93-c57c-4275-b28c-99f51344907f",
+                  "camera": [
+                    213.53750610351562,
+                    -139.09562683105469,
+                    98.931625366210937,
+                    213.53750610351562,
+                    -139.09562683105469,
+                    98.931625366210937,
+                    -0.40824830532073975,
+                    0.40824830532073975,
+                    0.81649661064147949,
+                    1.0,
+                    364.4759145978075,
+                    0.0,
+                    1.0
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "resource",
+              "role": "3d",
+              "mime": "application/autodesk-svf",
+              "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/3d.svf",
+              "progress": "graphics",
+              "guid": "7240084f-ce8c-4695-80b5-5646fb4e2bb5"
+            },
+            {
+              "type": "resource",
+              "role": "thumbnail",
+              "status": "success",
+              "mime": "image/png",
+              "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb100.png",
+              "resolution": [
+                100,
+                100
+              ],
+              "guid": "5579dba3-020a-4ecc-96bd-d8d7ace7834e"
+            },
+            {
+              "type": "resource",
+              "role": "thumbnail",
+              "status": "success",
+              "mime": "image/png",
+              "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb200.png",
+              "resolution": [
+                200,
+                200
+              ],
+              "guid": "906d1bcb-0cea-4cf4-ae52-bc573c207f4b"
+            },
+            {
+              "type": "resource",
+              "role": "thumbnail",
+              "status": "success",
+              "mime": "image/png",
+              "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb400.png",
+              "resolution": [
+                400,
+                400
+              ],
+              "guid": "970de3e5-0ce4-4a45-9003-b0d2d8407fbe"
+            }
+          ],
+          "viewableID": "84d9cccf-973a-40cd-8fe9-93a38e5b6df7"
+        }
+      ]
+    },
+    {
+      "outputType": "thumbnail",
+      "status": "success",
+      "progress": "complete",
+      "children": [
+        {
+          "type": "resource",
+          "role": "thumbnail",
+          "status": "success",
+          "mime": "image/png",
+          "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb100.png",
+          "resolution": [
+            100,
+            100
+          ],
+          "guid": "41bc8006-fe99-4d83-be81-11c04e12e50f"
+        },
+        {
+          "type": "resource",
+          "role": "thumbnail",
+          "status": "success",
+          "mime": "image/png",
+          "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb200.png",
+          "resolution": [
+            200,
+            200
+          ],
+          "guid": "91d1274d-c148-4f1a-ac83-d7d203218893"
+        },
+        {
+          "type": "resource",
+          "role": "thumbnail",
+          "status": "success",
+          "mime": "image/png",
+          "urn": "urn:adsk.viewing:fs.file:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YmltYW5nbGUvaW5wdXQucnZ0/thumb400.png",
+          "resolution": [
+            400,
+            400
+          ],
+          "guid": "d583a7be-0c85-4008-88fa-fc5e41158742"
+        }
+      ]
+    }
+  ]
+}
