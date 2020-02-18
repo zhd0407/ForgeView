@@ -53,8 +53,10 @@ public class getNodeAttr extends HttpServlet {
 
 	public JSONObject getNodeAttr(String id){
 		JSONObject retObj = new JSONObject();
+		JSONArray retArr = new JSONArray();
 		Connection c = null;
 		String db = "C:\\Users\\Administrator\\Desktop\\工作\\BIM\\apache-tomcat-bim\\webapps\\ROOT\\output\\model.sdb";
+		//String db = "C:\\Users\\wangjinlong\\Desktop\\sqliteDatabase\\model.sdb";
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:" + db);
@@ -63,6 +65,10 @@ public class getNodeAttr extends HttpServlet {
 			Statement stmt = null;
 	        stmt = c.createStatement();
 	        String sql = "select _objects_attr.category,"
+	        		+ "(select (select value from _objects_val a where id = t.value_id )"
+	        		+ " from _objects_eav t " 
+	        		+ " where t.entity_id = _objects_eav.entity_id " 
+	        		+ " and  (select name from _objects_attr where id =t.attribute_id ) ='name' ) title,"
 	        		+ " _objects_attr.name,"
 	        		+ " _objects_attr.data_type,"
 	        		+ " _objects_val.id,"
@@ -76,20 +82,35 @@ public class getNodeAttr extends HttpServlet {
 	        		+ " group by _objects_attr.category,_objects_attr.name "
 	        		+ " order by _objects_attr.category,_objects_attr.name";
 	        ResultSet rs = stmt.executeQuery( sql );
-	        while ( rs.next() ) {
-	        	JSONArray tmpArr = null;
-	        	String name = rs.getString("category");
-	        	if(retObj.has(name)){
-	        		tmpArr = retObj.getJSONArray(name);
-	        	}else{
-	        		tmpArr = new JSONArray();
-	        	}
-	        	JSONObject tmpObj = new JSONObject();
-        		tmpObj.put(rs.getString("name"), rs.getString("value"));
-        		tmpArr.put(tmpObj);
-        		retObj.put(name,tmpArr);
-	        }
 	        
+	     /*   var aa = [{
+            	"displayName":"新增属性",
+            	"displayValue":dbId,
+            	"displayCategory":"测试",
+            	"attributeName":"新增属性",
+            	"type":"20",
+            	"units":null,
+            	"hidden":false,
+            	"precision":0
+            }];*/
+	        retObj.put("title", "");
+	        while ( rs.next() ) {
+        		if("".equals(retObj.getString("title"))){
+	        		retObj.put("title", rs.getString("title"));
+	        	}
+        		JSONObject tmpObj = new JSONObject();
+        		tmpObj.put("displayName", rs.getString("name"));
+        		tmpObj.put("displayValue", rs.getString("value"));
+        		tmpObj.put("attributeName", rs.getString("name"));
+        		tmpObj.put("displayCategory", rs.getString("category"));
+        		tmpObj.put("type", rs.getString("data_type"));
+        		tmpObj.put("units", "");
+        		tmpObj.put("hidden", false);
+        		tmpObj.put("precision", 0);
+        		retArr.put(tmpObj);
+	        	
+	        }
+	        retObj.put("properties", retArr);
 	        rs.close();
 	        stmt.close();
 			c.close();

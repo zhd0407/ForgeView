@@ -31,10 +31,10 @@ Autodesk.Viewing.Initializer (options, function () {
     }
 
     viewer.loadModel("./3d.svf", undefined, onLoadSuccess, onLoadError);
-
+   
 });
 
-$(document).ready(function(){
+/*$(document).ready(function(){
 	 $.ajax({
         type : "GET",//提交方式
         url  : "/BIM/getTreeJson",//提交地址
@@ -54,16 +54,45 @@ $(document).ready(function(){
             alert("错误");
         }
     });
-});
+});*/
 
 function getZtree(){
 	return $.fn.zTree.getZTreeObj("treeDemo");
 }
 
+function onLoadSuccess(event) {
+	
+	$.ajax({
+        type : "GET",//提交方式
+        url  : "/BIM/getTreeJson",//提交地址
+        data : { },//提交的数据
+        dataType : "json",
+        success  : function(data){  //返回结果
+            console.log(data);
+            var setting = {
+            	callback: {
+            		onClick: zTreeOnClick
+            	}
+            };
+            var zNodes = data;
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        },
+        error : function(data){
+            alert("错误");
+        }
+    });
+	viewer.setPropertyPanel( new CustomPropsPanel( viewer ) );
+    console.log('success');
+}
+
 function zTreeOnClick(event, treeId, treeNode) {
+    console.log(viewer);
+   
     
     if(treeNode.id){
-    	 $.ajax({
+    	 var customPropsPanel = viewer.getPropertyPanel();
+    	 customPropsPanel.setNodeProperties(treeNode.id);
+    	/* $.ajax({
 	        type : "GET",//提交方式
 	        url  : "/BIM/getNodeAttr?id="+treeNode.id,//提交地址
 	        data : {},//提交的数据
@@ -74,13 +103,9 @@ function zTreeOnClick(event, treeId, treeNode) {
 	        error : function(data){
 	            alert("错误");
 	        }
-	    });
+	    });*/
     }
 };
-
-function onLoadSuccess(event) {
-    console.log('success');
-}
 
 function onLoadError(event) {
     console.log('fail');

@@ -9,8 +9,13 @@ EventsTutorial.prototype.constructor = EventsTutorial;
 EventsTutorial.prototype.onSelectionEvent = function(event) {
     var currSelection = this.viewer.getSelection();
     var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+    if(treeObj){
+    	 var selectedNodes = treeObj.getSelectedNodes();
+	    for(var i=0;i< selectedNodes.length;i++ ){
+		    treeObj.selectNode(selectedNodes[i],false);
+		}
+    }
     for(var i=0;i< currSelection.length;i++ ){
-    	 console.log(currSelection[i]);
     	 var nodes = treeObj.getNodesByParam("id", currSelection[i], null); 
 	    treeObj.selectNode(nodes[0],true);
     }

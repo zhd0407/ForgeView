@@ -42494,13 +42494,14 @@ var Tree = function (delegate, root, parentContainer, options) {
 
     var rootContainer = this.myRootContainer = this.createHtmlElement_(parentContainer, 'div', className);
 
-    var rootElem = this.rootElem = this.createElement_(root, rootContainer, options, 0);
+    //var rootElem = this.rootElem = this.createElement_(root, rootContainer, options, 0);
 
+    rootContainer.innerHTML = "<ul id='treeDemo' class='ztree'></ul>";
     this.setInputHandlers_();
 
-    if(options && options.excludeRoot) {
+   /* if(options && options.excludeRoot) {
         rootElem.classList.add("exclude");
-    }
+    }*/
 
 };
 

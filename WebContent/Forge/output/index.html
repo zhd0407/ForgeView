@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="../lib/style.min.css">
 	<script src="../lib/viewer3D.js"></script>
 	<script src="../lib/Viewing.Extension/EventsTutorial.js"></script>
+	<script src="../lib/Viewing.Extension/CustomPropsPanel.js"></script>
 	
 	<style>
 		.zTreeDemoBackground {
@@ -26,12 +27,13 @@
 			z-index:9;
 		}
 		.ztree {
-			margin-top: 10px;border: 1px solid #617775;
-			background: #f0f6e4;
-			width:220px;
+			/* margin-top: 10px;
+			border: 1px solid #617775;
+			background: #f0f6e4; */
+			width:98%;
 			height:600px;
 			overflow-y:scroll;
-			overflow-x:auto;
+			overflow-x:hidden;
 		}
 		
 		.my-custom-ui {
@@ -49,22 +51,28 @@
 		.my-custom-ui span {
 		    color: red;
 		}
+		.treeview{
+			position: absolute;
+			left: 4px;
+			width: 98%;
+			direction: ltr;
+			
+		}
 	</style>
 </head>
 <body style="margin:0px">
-	<div class="zTreeDemoBackground">
+	<!-- <div class="zTreeDemoBackground">
 		<ul id="treeDemo" class="ztree"></ul>
-	</div>	
+	</div>	 -->
 	<div >
 		<div id="viewer-local"></div>
 	</div>
 	
-	<div class="my-custom-ui">
+	<div class="my-custom-ui" style="display:none;">
 	    <div>Items selected: <span id="MySelectionValue">0</span></div>
 	    <div>Navigation tool: <span id="MyToolValue">Unknown</span></div>
 	<div>
 	
 	<script src="../lib/viewTools.js"></script>
-	<script src="../lib/treeTools.js"></script>
 </body>
 </html>
