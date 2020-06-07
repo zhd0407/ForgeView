@@ -55,13 +55,11 @@ public class getNodeAttr extends HttpServlet {
 		JSONObject retObj = new JSONObject();
 		JSONArray retArr = new JSONArray();
 		Connection c = null;
-		String db = "C:\\Users\\Administrator\\Desktop\\นคื๗\\BIM\\apache-tomcat-bim\\webapps\\ROOT\\output\\model.sdb";
-		//String db = "C:\\Users\\wangjinlong\\Desktop\\sqliteDatabase\\model.sdb";
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:" + db);
+			c = DriverManager.getConnection("jdbc:sqlite:" + getTreeJson.dbpath);
 			c.setAutoCommit(false);
-			System.out.println("Opened database successfully");
+			System.out.println("Get properties,Opened database successfully");
 			Statement stmt = null;
 	        stmt = c.createStatement();
 	        String sql = "select _objects_attr.category,"

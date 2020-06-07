@@ -3,8 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<style>
+		.zTreeDemoBackground {
+				width:225px;
+				height:602px;
+				text-align:left;
+				position:absolute;
+				margin-left:10px;
+				float:right;
+				z-index:9;
+			}
+			.ztree {
+				/* margin-top: 10px;
+				border: 1px solid #617775;
+				background: #f0f6e4; */
+				width:98%;
+				height:600px;
+				overflow-y:scroll;
+				overflow-x:hidden;
+			}
+			
+	</style>
+	<link rel="stylesheet" href="/BIM/plugins/zTree/css/metroStyle/metroStyle.css" type="text/css">
+	<script type="text/javascript" src="/BIM/plugins/zTree/js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="/BIM/plugins/zTree/js/jquery.ztree.core.js"></script>
 </head>
-<body>
 
+<body>
+	<div class="zTreeDemoBackground">
+		<ul id='treeDemo' class='ztree'></ul>
+	</div>
+	<script type="text/javascript">
+		var setting = {
+				check: {
+					enable: true,
+					chkStyle: "checkbox",
+					chkboxType: { "Y": "s", "N": "s" }
+				},
+				async:{
+					enable:true,
+					url:"/BIM/getTreeJson",
+					otherParam:["parentId",""],
+					type: "get"
+				},
+				callback: {
+					beforeAsync: zTreeBeforeAsync
+				}
+			};
+		    $.fn.zTree.init($("#treeDemo"), setting);
+		    
+		    function getZtree(){
+		    	return $.fn.zTree.getZTreeObj("treeDemo");
+		    }
+		    
+		    function zTreeBeforeAsync(treeId,treeNode){
+		    	debugger;
+		    	var treeObj = getZtree();
+		    	if(treeNode){
+		    		treeObj.setting.async.otherParam = ["parentId",treeNode.id];
+		    	}
+		    	return true;
+		    }
+	</script>
 </body>
 </html>

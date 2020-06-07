@@ -3,6 +3,7 @@ package com.base.forge;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 @WebServlet("/getTreeJson")
 public class getTreeJson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static String dbpath = "C:\\Users\\Administrator\\Desktop\\BIM\\model.sdb";
 
     /**
      * Default constructor. 
@@ -34,8 +36,7 @@ public class getTreeJson extends HttpServlet {
 		
 		response.setHeader("content-type", "text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
-		out.print(getTreeJson());
+		out.print(getTreeJson(request,response));
 		out.flush();
 		out.close();
 
@@ -50,19 +51,23 @@ public class getTreeJson extends HttpServlet {
 	}
 
 	
-	public JSONArray getTreeJson() {
+	public JSONArray getTreeJson(HttpServletRequest request, HttpServletResponse response) {
+		String parentId = request.getParameter("parentId");
+		
 		JSONArray retArr = new JSONArray();
 		Connection c = null;
-		
-		String db = "C:\\Users\\Administrator\\Desktop\\นคื๗\\BIM\\apache-tomcat-bim\\webapps\\ROOT\\output\\model.sdb";
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:" + db);
+			c = DriverManager.getConnection("jdbc:sqlite:" + getTreeJson.dbpath);
 			c.setAutoCommit(false);
-			System.out.println("Opened database successfully");
+			System.out.println("Get Tree, Opened database successfully");
+			int dept = 3;
 			
-			retArr = getRootNode(c);
-			
+			if(parentId==null||"".equals(parentId)||"undefined".equals(parentId)) {
+				retArr = getRootNode(c,dept);
+			}else {
+				retArr = getChildNode(parentId,c,1,1);
+			}
 			c.close();
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -71,7 +76,8 @@ public class getTreeJson extends HttpServlet {
 		return retArr;
 	}
 
-	public JSONArray getRootNode(Connection c) throws SQLException{
+	public JSONArray getRootNode(Connection c,int dept) throws SQLException{
+		int level = 1;
 		 JSONArray retArr = new JSONArray();
         //root
         String sql = "select entity_id,        \n" +
@@ -99,11 +105,11 @@ public class getTreeJson extends HttpServlet {
                 "                       and _objects_attr.name ='parent'\n" +
                 " )\n" +
                 " and attribute_id = (select id from _objects_attr where name= 'name')";
-        retArr = getDataFromDb(sql,c);
+        retArr = getDataFromDb(sql,c,dept,level);
         return retArr;
 	}
 	
-    public JSONArray getChildNode(String pId,Connection c) throws SQLException{
+    public JSONArray getChildNode(String pId,Connection c,int dept,int level) throws SQLException{
        String sql = "select entity_id,        \n" +
                "        (\n" +
                "        select \n" +
@@ -130,26 +136,33 @@ public class getTreeJson extends HttpServlet {
                " and (select value from _objects_val where id = _objects_eav.value_id )  =" + pId +
                " )\n" +
                " and attribute_id = (select id from _objects_attr where name= 'name')";
-        return getDataFromDb(sql,c);
+        return getDataFromDb(sql,c,dept,level);
     }
 
-    public JSONArray getDataFromDb(String sql,Connection c) throws SQLException{
+    public JSONArray getDataFromDb(String sql,Connection c,int dept,int level) throws SQLException{
         JSONArray arr = new JSONArray();
         Statement stmt = null;
         stmt = c.createStatement();
         ResultSet rs = stmt.executeQuery( sql );
+        
         while ( rs.next() ) {
             JSONObject tmpObj = new JSONObject();
             String id = rs.getString("entity_id");
             tmpObj.put("id",id);
             tmpObj.put("name",rs.getString("name"));
+            tmpObj.put("checked",true);
             int cnum = rs.getInt("child");
             if(cnum>0){
                 tmpObj.put("isParent",true);
-                tmpObj.put("children",getChildNode(id,c));
+                if(level<dept) {
+                	 tmpObj.put("children",getChildNode(id,c,dept,level+1));
+                	 tmpObj.put("open",true);
+                }
+            }else {
+            	 tmpObj.put("isParent",false);
             }
-            tmpObj.put("open",true);
             arr.put(tmpObj);
+            level++;
         }
         rs.close();
         stmt.close();

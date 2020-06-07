@@ -4,14 +4,15 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no"/>
-    <title>BimAngle.com - Trial version</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>BIM</title>
 	
-	<link rel="stylesheet" href="/BIM/plugins/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
-	<script type="text/javascript" src="/BIM/plugins/zTree/js/jquery-1.4.4.min.js"></script>
-	<script type="text/javascript" src="/BIM/plugins/zTree/js/jquery.ztree.core.js"></script>
-	
+	<link rel="stylesheet" href="/BIM/plugins/zTree/css/metroStyle/metroStyle.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="../lib/style.min.css">
+	<link rel="stylesheet" href="/BIM/plugins/layui/css/layui.css"  media="all">
+	<script src="/BIM/plugins/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+	<script src="/BIM/plugins/zTree/js/jquery.ztree.core.js"></script>
+	<script src="/BIM/plugins/zTree/js/jquery.ztree.excheck.js"></script>
 	<script src="../lib/viewer3D.js"></script>
 	<script src="../lib/Viewing.Extension/EventsTutorial.js"></script>
 	<script src="../lib/Viewing.Extension/CustomPropsPanel.js"></script>
@@ -19,7 +20,7 @@
 	<style>
 		.zTreeDemoBackground {
 			width:225px;
-			height:602px;
+			height:492px;
 			text-align:left;
 			position:absolute;
 			margin-left:10px;
@@ -31,8 +32,8 @@
 			border: 1px solid #617775;
 			background: #f0f6e4; */
 			width:98%;
-			height:600px;
-			overflow-y:scroll;
+			height:490px;
+			overflow-y:auto;
 			overflow-x:hidden;
 		}
 		
@@ -58,6 +59,15 @@
 			direction: ltr;
 			
 		}
+		.addPropertyPanelClass{
+			height: 300px;
+		}
+		.simplePanelClose{
+		    width: 100%;
+   			height: 30px;
+    		font-size: 20px;
+   			text-align: center;
+		}
 	</style>
 </head>
 <body style="margin:0px">
@@ -68,11 +78,19 @@
 		<div id="viewer-local"></div>
 	</div>
 	
-	<div class="my-custom-ui" style="display:none;">
-	    <div>Items selected: <span id="MySelectionValue">0</span></div>
-	    <div>Navigation tool: <span id="MyToolValue">Unknown</span></div>
-	<div>
-	
 	<script src="../lib/viewTools.js"></script>
+	<script src="../lib/Viewing.Extension/SimplePanel.js"></script>
+	<script src="/BIM/plugins/layui/layui.all.js" charset="utf-8"></script>
+	<script>
+	layui.use(['element', 'layer'], function(){
+	  var element = layui.element;
+	  var layer = layui.layer;
+	  
+	  //监听折叠
+	  element.on('collapse(test)', function(data){
+	    layer.msg('展开状态：'+ data.show);
+	  });
+	});
+	</script>
 </body>
 </html>

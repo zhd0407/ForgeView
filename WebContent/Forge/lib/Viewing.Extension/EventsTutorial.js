@@ -1,4 +1,4 @@
-
+//构件定义选中事件
 function EventsTutorial(viewer, options) {
   Autodesk.Viewing.Extension.call(this, viewer, options);
 }
@@ -7,26 +7,15 @@ EventsTutorial.prototype = Object.create(Autodesk.Viewing.Extension.prototype);
 EventsTutorial.prototype.constructor = EventsTutorial;
 
 EventsTutorial.prototype.onSelectionEvent = function(event) {
-    var currSelection = this.viewer.getSelection();
-    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-    if(treeObj){
-    	 var selectedNodes = treeObj.getSelectedNodes();
-	    for(var i=0;i< selectedNodes.length;i++ ){
-		    treeObj.selectNode(selectedNodes[i],false);
-		}
-    }
-    for(var i=0;i< currSelection.length;i++ ){
-    	 var nodes = treeObj.getNodesByParam("id", currSelection[i], null); 
-	    treeObj.selectNode(nodes[0],true);
-    }
-    
-   /* var domElem = document.getElementById('MySelectionValue');
-    domElem.innerText = currSelection.length;*/
-};
+	changeNodeSelectedByModelSelection();
 
+};
+/**
+ * 工具栏事件
+ * */
 EventsTutorial.prototype.onNavigationModeEvent = function(event) {
-    var domElem = document.getElementById('MyToolValue');
-    domElem.innerText = this.viewer.getActiveNavigationTool(); // same value as event.id
+   // var domElem = document.getElementById('MyToolValue');
+   // domElem.innerText = this.viewer.getActiveNavigationTool(); // same value as event.id
 };
 
 EventsTutorial.prototype.load = function() {

@@ -42493,7 +42493,7 @@ var Tree = function (delegate, root, parentContainer, options) {
     this.nodeIdToNode = {};
 
     var rootContainer = this.myRootContainer = this.createHtmlElement_(parentContainer, 'div', className);
-
+    //将此处注释掉，改为放入<ul>标签，为ztree提供容器
     //var rootElem = this.rootElem = this.createElement_(root, rootContainer, options, 0);
 
     rootContainer.innerHTML = "<ul id='treeDemo' class='ztree'></ul>";
@@ -51636,6 +51636,10 @@ var stringToDOM = avp.stringToDOM = function(str) {
             structureButton.setIcon("adsk-icon-structure");
             structureButton.onClick = function (e) {
                 viewer.showModelStructurePanel(!viewer.modelstructure.isVisible());
+                var h = document.getElementById("treeDemo").innerHTML;
+                if(h==null||h==""||h==undefined){
+                	  createTreeAfterModelload();
+                }
             };
 
             this.settingsTools.addControl(structureButton);
